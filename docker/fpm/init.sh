@@ -19,6 +19,8 @@ fi
 
 cd /var/www/astro/public/dev
 
+chmod -R 777 /var/www/astro/data
+
 yarn install
 yarn build
 
