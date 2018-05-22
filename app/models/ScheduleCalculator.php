@@ -2,6 +2,16 @@
 
 class ScheduleCalculator
 {
+    const DATE_TIME_FORMAT = 'Y-m-d H:i:s';
+
+    const DATE_FORMAT = 'Y-m-d';
+
+    const TIME_START = '00:00:00';
+
+    const TIME_END = '23:59:59';
+
+    const REPORT_DURATION = '+2 weeks';
+
     public static function process(array $userList, string $startDate, string $viewDate, int $shiftLength): array
     {
         $countUser = count($userList);
@@ -35,15 +45,15 @@ class ScheduleCalculator
             }
         }
 
-        $startDate = strtotime($viewDate . ' 00:00:00');
-        $endDate = strtotime(date('Y-m-d', strtotime($viewDate . ' +2 weeks')) . '23:59:59');
+        $startDate = strtotime($viewDate . ' ' . static::TIME_START);
+        $endDate = strtotime(date(static::DATE_FORMAT, strtotime($viewDate . ' ' . static::REPORT_DURATION)) . ' ' . static::TIME_END);
 
         $result = [];
 
         for ($i = $startDate; $i < $endDate; $i += $shiftLength) {
             $row = [
-                'start' => date('Y-m-d H:i:s', $i),
-                'end' => date('Y-m-d H:i:s', $i + $shiftLength)
+                'start' => date(static::DATE_TIME_FORMAT, $i),
+                'end' => date(static::DATE_TIME_FORMAT, $i + $shiftLength)
             ];
             $row['user'] = $userList[$currentUserIndex]['first_name'] . ' ' . $userList[$currentUserIndex]['last_name'];
             $currentUserIndex++;
