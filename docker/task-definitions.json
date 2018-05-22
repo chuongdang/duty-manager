@@ -1,32 +1,32 @@
-{
-  "containerDefinitions": [
-    {
-      "name": "fpm",
-      "image": "docker.io/chuongdang291088/clinic:fpm",
-      "essential": true
-    },
-    {
-      "name": "nginx",
-      "image": "docker.io/chuongdang291088/clinic:nginx",
-      "essential": true,
-      "portMappings": [
-        {
-          "containerPort": 80,
-          "hostPort": 0,
-          "protocol": "tcp"
-        }
-      ],
-      "volumesFrom": [
-        {
-          "sourceContainer": "fpm",
-          "readOnly": false
-        }
-      ],
-      "links": [
-        "fpm:fpm"
-      ]
-    }
-  ],
-  "volumes": [
-  ]
-}
+[
+  {
+    "name": "fpm",
+    "image": "docker.io/chuongdang291088/clinic:fpm",
+    "memoryReservation": 500,
+    "cpu": 662,
+    "essential": true
+  },
+  {
+    "name": "nginx",
+    "image": "docker.io/chuongdang291088/clinic:nginx",
+    "memory": 50,
+    "cpu": 20,
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 80,
+        "hostPort": 0,
+        "protocol": "tcp"
+      }
+    ],
+    "volumesFrom": [
+      {
+        "sourceContainer": "fpm",
+        "readOnly": false
+      }
+    ],
+    "links": [
+      "fpm:fpm"
+    ]
+  }
+]
