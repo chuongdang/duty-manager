@@ -4,7 +4,7 @@ const getApiUrl = (url) => {
   if (/^http[s]*:\/\/.+/.test(url)) {
     return url
   }
-  return `http://localhost/api/v1/${url}`
+  return `http://astro-1765779789.ap-southeast-1.elb.amazonaws.com/schedules/api/v1/${url}`
 }
 
 const getEncodedUrlParams = params => Object.keys(params)
