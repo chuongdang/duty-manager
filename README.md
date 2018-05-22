@@ -11,9 +11,19 @@ This project is a simple project to automate scheduling for staffs
 
 ### Local test
 
+Start Docker containers
+
 ```bash
 cd docker
 ./run.sh
+```
+
+Open http://localhost
+
+To stop docker containers
+
+```bash
+./run.sh down
 ```
 
 ### Frontend development and debug
@@ -23,6 +33,14 @@ cd public/dev
 yarn start
 ```
 
+Open http://localhost:3000
+
 ### Deploy to AWS
 
 * Create ECS service
+* Run deploy command
+
+```bash
+cd docker
+./deploy.sh
+```
