@@ -71,7 +71,7 @@ class App extends React.Component {
         >
           <Toolbar>
             <Typography variant="title" color="inherit" noWrap>
-              Duty Management
+              Duty Manager
             </Typography>
           </Toolbar>
         </AppBar>
