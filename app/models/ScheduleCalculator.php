@@ -16,9 +16,11 @@ class ScheduleCalculator
 
         $numberOfPassShift = ceil(($currentTimestamp - $startTimestamp) / $shiftLength);
 
+        // If startDate and viewDate is the same day, obviously the first user in the list will be assignee
         if ($numberOfPassShift == 0) {
             $currentUserIndex = 0;
         } else {
+            // The mod result will be the index of the user
             if ($numberOfPassShift > $countUser) {
                 $currentUserIndex = $numberOfPassShift % $countUser;
 
@@ -28,6 +30,7 @@ class ScheduleCalculator
                     $currentUserIndex = $currentUserIndex - 1;
                 }
             } else {
+                // If number of passed shifts smaller than number of user, take it as index
                 $currentUserIndex = $numberOfPassShift - 1;
             }
         }
@@ -44,6 +47,7 @@ class ScheduleCalculator
             ];
             $row['user'] = $userList[$currentUserIndex]['first_name'] . ' ' . $userList[$currentUserIndex]['last_name'];
             $currentUserIndex++;
+            // End of the user array, back to the first element
             if ($currentUserIndex >= $countUser) {
                 $currentUserIndex = 0;
             }
