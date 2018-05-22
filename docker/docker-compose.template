@@ -1,0 +1,36 @@
+version: '3.2'
+
+volumes:
+  src-sync:
+  var-run:
+
+services:
+  rsync:
+    build: "%docker-path%/rsync"
+    image: astro/rsync
+    container_name: astro_rsync
+    ports:
+      - "10873:873"
+    volumes:
+      - src-sync:/var/www
+  fpm:
+    build: "%docker-path%/fpm"
+    image: astro/fpm
+    restart: always
+    container_name: astro_fpm
+    volumes:
+      - src-sync:/var/www
+      - var-run:/var/run
+  nginx:
+    build: "%docker-path%/nginx"
+    image: astro/nginx
+    restart: always
+    container_name: astro_nginx
+    volumes:
+      - src-sync:/var/www
+      - var-run:/var/run
+      - %docker-path%/nginx/config/sites-enabled:/etc/nginx/sites-enabled
+    links:
+      - fpm:fpm
+    ports:
+      - "80:80"
