@@ -9,10 +9,9 @@ sed "s@%src-path%@$SRC_PATH@g; s@%docker-path%@$DOCKER_PATH@g" $DOCKER_PATH'/doc
 
 if [ $action = "up" ]; then
 	docker-compose -f $docker_compose_file up -d
+	rsync -avz $SRC_PATH/* rsync://localhost:10873/volume/astro
 elif [ $action = "down" ]; then
 	docker-compose -f $docker_compose_file down
 fi
 
 rm $docker_compose_file
-
-rsync -avz $SRC_PATH/* rsync://localhost:10873/volume/astro

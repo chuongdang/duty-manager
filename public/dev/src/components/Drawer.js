@@ -1,38 +1,90 @@
-import React from 'react';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import HomeIcon from '@material-ui/icons/Home';
-import UserIcon from '@material-ui/icons/People';
-import ScheduleIcon from '@material-ui/icons/Schedule';
+import React from 'react'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import HomeIcon from '@material-ui/icons/Home'
+import UserIcon from '@material-ui/icons/People'
+import ScheduleIcon from '@material-ui/icons/Schedule'
+import Divider from '@material-ui/core/Divider'
+import Drawer from '@material-ui/core/Drawer'
+import List from '@material-ui/core/List'
+import Typography from '@material-ui/core/List'
+import { NavLink as Link } from 'react-router-dom'
+import { withStyles } from '@material-ui/core/styles'
 
-import { Link } from 'react-router';
+const drawerWidth = 240
 
-export const mainItems = (
-  <div>
-    <Link to="/" activeClassName="active" onlyActiveOnIndex={true}>
-        <ListItem button>
-        <ListItemIcon>
+const styles = theme => (
+  {
+    drawerPaper: {
+      position: 'relative',
+      width: drawerWidth,
+    },
+    toolbar: {
+      ...theme.mixins.toolbar,
+      textAlign: 'center'
+    },
+    logo: {
+      marginTop: 20,
+      fontSize: 20
+    },
+    itemActive: {
+      backgroundColor: theme.palette.grey[300]
+    }
+  }
+)
+
+class DrawerItemList extends React.Component {
+  render() {
+    const { classes } = this.props
+
+    return (
+      <div>
+        <ListItem button component={Link} to="/" exact activeClassName={classes.itemActive}>
+          <ListItemIcon>
             <HomeIcon />
-        </ListItemIcon>
-        <ListItemText primary="Home" />
+          </ListItemIcon>
+          <ListItemText primary="Home" />
         </ListItem>
-    </Link>
-    <Link to="/users" activeClassName="active">
-        <ListItem button>
-        <ListItemIcon>
+        <ListItem button component={Link} to="/users" activeClassName={classes.itemActive}>
+          <ListItemIcon>
             <UserIcon />
-        </ListItemIcon>
-        <ListItemText primary="Users" />
+          </ListItemIcon>
+          <ListItemText primary="Users" />
         </ListItem>
-    </Link>
-    <Link to="/schedules" activeClassName="active">
-        <ListItem button>
-        <ListItemIcon>
+        <ListItem button component={Link} to="/schedules" activeClassName={classes.itemActive}>
+          <ListItemIcon>
             <ScheduleIcon />
-        </ListItemIcon>
-        <ListItemText primary="Schedules" />
+          </ListItemIcon>
+          <ListItemText primary="Schedules" />
         </ListItem>
-    </Link>
-  </div>
-);
+      </div>
+    )
+  }
+}
+
+class AppDrawer extends React.Component {
+    render() {
+      const { classes } = this.props
+
+      return (
+        <Drawer
+          variant="permanent"
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+          anchor="left"
+        >
+          <div className={classes.toolbar}>
+          <Typography className={classes.logo}>ASTRO</Typography>
+          </div>
+          <Divider />
+          <List>
+            <DrawerItemList classes={classes} />
+          </List>
+        </Drawer>
+      )
+    }
+}
+
+export default withStyles(styles)(AppDrawer)

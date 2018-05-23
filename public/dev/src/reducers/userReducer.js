@@ -1,7 +1,7 @@
 import {
-    USER_LIST_FETCH,
     USER_LIST_FETCH_OK,
     USER_ADD_SUBMIT_OK,
+    USER_DELETE_OK,
 } from '~/actions/types';
 
 const initialState = {
@@ -12,10 +12,15 @@ const initialState = {
 export default (state = initialState, { type, ...payload }) => {
     switch (type) {
         case USER_ADD_SUBMIT_OK:
-            return {
+            return {    
                 ...state,
                 refresh: true
             }
+        case USER_DELETE_OK:
+        return {
+            ...state,
+            refresh: true
+        }
         case USER_LIST_FETCH_OK:
             const userList = payload.data
             var userMap = {}

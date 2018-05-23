@@ -6,11 +6,11 @@ import { withTheme } from '@material-ui/core/styles';
 import { hideNotification as hideNotificationAction } from '~/actions/notificationActions';
 
 function getStyles(theme) {
-    if (!theme) return { primary1Color: '#00bcd4', accent1Color: '#ff4081' };
+    if (!theme) return { error: '#00bcd4', secondary: '#ff4081' };
     const {
-        palette: { primary1Color, accent1Color },
+        palette: { error, secondary },
     } = theme
-    return { primary1Color, accent1Color };
+    return { errorColor: error.light, secondaryColor: secondary.light };
 }
 
 class Notification extends React.Component {
@@ -21,12 +21,10 @@ class Notification extends React.Component {
     render() {
         const style = {};
         const { type, message, theme } = this.props;
-        const { primary1Color, accent1Color } = getStyles(theme);
+        const { errorColor, secondaryColor } = getStyles(theme);
+        style.backgroundColor = errorColor
         if (type === 'warning') {
-            style.backgroundColor = accent1Color;
-        }
-        if (type === 'confirm') {
-            style.backgroundColor = primary1Color;
+            style.backgroundColor = secondaryColor;
         }
         return (
             <Snackbar
@@ -34,7 +32,10 @@ class Notification extends React.Component {
                 message={!!message && message}
                 autoHideDuration={4000}
                 onClose={this.handleRequestClose}
-                styles={style}
+                style={style}
+                ContentProps={{
+                    style: style
+                }}
             />
         );
     }

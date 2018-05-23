@@ -4,7 +4,7 @@ const getApiUrl = (url) => {
   if (/^http[s]*:\/\/.+/.test(url)) {
     return url
   }
-  return `http://astro-1765779789.ap-southeast-1.elb.amazonaws.com/api/v1/${url}`
+  return `http://${window.location.hostname}/api/v1/${url}`
 }
 
 const getEncodedUrlParams = params => Object.keys(params)
@@ -35,7 +35,7 @@ const fetchMiddleware = store => next => (action) => {
   const queryParams = ['GET'].indexOf(method) >= 0 && action.params
     ? `?${getEncodedUrlParams(action.params)}`
     : ''
-
+  
   timeoutPromise(10000, new Error('Request Timed Out!'), fetch(`${getApiUrl(url)}${queryParams}`, {
     method,
     headers: {

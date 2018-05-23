@@ -39,4 +39,22 @@ class UserController extends BaseController
 
         return $this->returnData($user->toArray());
     }
+
+    public function deleteAction()
+    {
+        $userId = $this->dispatcher->getParam('id');
+
+        $user = User::findFirst($userId);
+
+        $success = false;
+
+        if ($user) {
+            $success = $user->delete();
+        }
+
+        if (!$success) {
+            $this->returnErrorMessage(static::MESSAGE_CAN_NOT_DELETE);
+        }
+        return $this->returnData($user->toArray());
+    }
 }

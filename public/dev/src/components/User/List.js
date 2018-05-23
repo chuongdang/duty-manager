@@ -7,10 +7,12 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import IconButton from '@material-ui/core/IconButton'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 const CustomTableCell = withStyles(theme => ({
   head: {
-    backgroundColor: '#666',
+    backgroundColor: theme.palette.primary.light,
     color: theme.palette.common.white,
   },
   body: {
@@ -35,7 +37,7 @@ const styles = theme => ({
 });
 
 function UserList(props) {
-  const { classes, data } = props;
+  const { classes, data, deleteUser } = props;
 
   return (
     <Paper className={classes.root}>
@@ -45,6 +47,7 @@ function UserList(props) {
             <CustomTableCell>First Name</CustomTableCell>
             <CustomTableCell>Last Name</CustomTableCell>
             <CustomTableCell>Email</CustomTableCell>
+            <CustomTableCell>Action</CustomTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -60,6 +63,11 @@ function UserList(props) {
                 </CustomTableCell>
                 <CustomTableCell component="th" scope="row">
                   {n.email}
+                </CustomTableCell>
+                <CustomTableCell component="th" scope="row">
+                  <IconButton aria-label="Delete" onClick={() => deleteUser(n.id_user)}>
+                    <DeleteIcon />
+                  </IconButton>
                 </CustomTableCell>
               </TableRow>
             );

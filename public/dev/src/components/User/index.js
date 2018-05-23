@@ -9,6 +9,7 @@ import UserList from './List';
 
 import {
   addUser as addUserAction,
+  deleteUser as deleteUserAction,
   fetchUserList as fetchUserListAction
 } from '~/actions/userActions'
 
@@ -27,7 +28,7 @@ class User extends React.Component {
   }
 
   render() {
-    const { addUser, userList, refresh, fetchUserList, classes } = this.props
+    const { addUser, deleteUser, userList, refresh, fetchUserList, classes } = this.props
     if (refresh) {
       fetchUserList()
     }
@@ -38,7 +39,7 @@ class User extends React.Component {
               <UserAdd onSubmit={addUser} />
             </Grid>
             <Grid item xs={12} md={9}>
-              <UserList data={userList} />
+              <UserList data={userList} deleteUser={deleteUser} />
             </Grid>
           </Grid>
         </Paper>
@@ -53,6 +54,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   addUser: addUserAction,
+  deleteUser: deleteUserAction,
   fetchUserList: fetchUserListAction
 }
 

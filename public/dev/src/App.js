@@ -1,17 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import { mainItems } from '~/components/Drawer';
-import Notification from '~/components/Notification';
+import React from 'react'
+import PropTypes from 'prop-types'
+import classNames from 'classnames'
+import { withStyles } from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import Drawer from '~/components/Drawer'
+import Content from '~/components/Content'
+import Notification from '~/components/Notification'
 
-const drawerWidth = 240;
+const drawerWidth = 240
 
 const styles = theme => ({
   appFrame: {
@@ -27,40 +25,17 @@ const styles = theme => ({
   'appBar-left': {
     marginLeft: drawerWidth,
   },
-  'appBar-right': {
-    marginRight: drawerWidth,
-  },
-  drawerPaper: {
-    position: 'relative',
-    width: drawerWidth,
-  },
   toolbar: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
   },
-});
+})
 
 class App extends React.Component {
   render() {
-    const { classes, children } = this.props;
-
-    const drawer = (
-      <Drawer
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-        anchor="left"
-      >
-        <div className={classes.toolbar}>
-        <Typography>ASTRO</Typography>
-        </div>
-        <Divider />
-        <List>{mainItems}</List>
-      </Drawer>
-    );
+    const { classes } = this.props
 
     return (
       <div className={classes.appFrame}>
@@ -75,18 +50,18 @@ class App extends React.Component {
             </Typography>
           </Toolbar>
         </AppBar>
-        { drawer }
+        <Drawer />
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          { children }
+          <Content />
         </main>
       </div>
-    );
+    )
   }
 }
 
 App.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(App);
+export default withStyles(styles)(App)
